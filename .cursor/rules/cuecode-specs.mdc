@@ -1,0 +1,42 @@
+---
+description: CueCode product specs — read before implementing agent, sandbox, or rebrand work
+globs:
+  - crates/agent/**
+  - crates/agent_ui/**
+  - crates/agent_*/**
+  - crates/acp_*/**
+  - crates/cuecode/**
+  - crates/paths/**
+  - crates/release_channel/**
+  - .cursor/specs/**
+alwaysApply: false
+---
+
+# CueCode specs
+
+This repo is a **Zed fork** building **CueCode** — an agentic coding sandbox.
+
+## Before implementing
+
+1. Read `.cursor/specs/00-README.md` for the index.
+2. For agent/sandbox features: read `core/04-sandbox-core.md`, `core/05-innovations.md`, `core/06-system-design.md`.
+3. For rebrand work: read `core/03-fork-and-rebrand.md` and follow Phase 0 in `delivery/build-plans/00-master-build-plan.md` (Build phase 0.x).
+4. Link PRs to the spec section you implement. Update specs if behavior diverges.
+
+## Principles
+
+- Session-first, specs-first, local-first, trust grows, replayable actions.
+- Change `APP_NAME` in `crates/paths/src/paths.rs` when renaming the binary — forks must not collide with Zed user data.
+- Do not require zed.dev accounts for core agent workflows in CueCode.
+- GPL-3.0-or-later applies to distributed builds.
+
+## Open decisions
+
+Check `.cursor/specs/ops/12-open-questions.md` before making architectural choices.
+
+## Related rule
+
+For UI, inference, and agent-skill work (not just specs), see
+`.cursor/rules/cuecode-agent-development.mdc` and `.cursor/skills/`.
+
+Communication tone and ideate/solve modes: `.cursor/rules/cuecode-comms.mdc`.

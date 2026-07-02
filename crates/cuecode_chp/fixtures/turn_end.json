@@ -1,0 +1,10 @@
+{
+  "chp_version": "1.0",
+  "type": "turn.end",
+  "session_id": "sess_test_001",
+  "seq": 4,
+  "payload": {
+    "user_message_id": "umsg_1",
+    "stop_reason": "end_turn"
+  }
+}

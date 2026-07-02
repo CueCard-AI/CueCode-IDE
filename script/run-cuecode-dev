@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Run CueCode from this checkout (CueInference/CueCode-IDE).
+# Use this instead of ad-hoc `cargo run` from another clone (e.g. /private/tmp/.../staging).
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+if [[ "$(pwd -P)" != "$ROOT" ]]; then
+  echo "run-cuecode-dev: resolved ROOT=$ROOT" >&2
+fi
+
+if [[ -d "/private/tmp/cueinference-monorepo-staging/CueCode-IDE" ]] \
+  && [[ "$(pwd -P)" == "/private/tmp/cueinference-monorepo-staging/CueCode-IDE" ]]; then
+  echo "Warning: you are in the staging clone. Prefer:" >&2
+  echo "  cd /Users/karthikravi/CueInference/CueCode-IDE && ./script/run-cuecode-dev" >&2
+fi
+
+echo "CueCode dev build from: $ROOT" >&2
+exec cargo run -p cuecode --bin cuecode "$@"

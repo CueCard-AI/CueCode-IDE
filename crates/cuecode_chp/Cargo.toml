@@ -1,0 +1,23 @@
+[package]
+name = "cuecode_chp"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+license = "GPL-3.0-or-later"
+description = "CueCode Harness Protocol (CHP) message types and fixtures"
+
+[lints]
+workspace = true
+
+[lib]
+path = "src/cuecode_chp.rs"
+
+[dependencies]
+anyhow.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+chrono.workspace = true
+
+[dev-dependencies]
+pretty_assertions.workspace = true

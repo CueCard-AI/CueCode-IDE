@@ -1,0 +1,17 @@
+{
+  "chp_version": "1.0",
+  "type": "session.started",
+  "session_id": "sess_test_001",
+  "seq": 1,
+  "request_id": "req_start_1",
+  "payload": {
+    "negotiated_version": "1.0",
+    "capabilities": {
+      "transports": ["websocket"],
+      "supports_resume": true,
+      "supports_spawn_lane": false,
+      "max_tool_result_bytes": 262144
+    },
+    "session_id": "sess_test_001"
+  }
+}

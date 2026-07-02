@@ -1,0 +1,17 @@
+// CueCode settings
+//
+// For information on how to configure CueCode, see the CueCode
+// documentation: https://cuecode.dev/docs
+//
+// To see all of CueCode's default settings without changing your
+// custom settings, run `cuecode: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "One Dark",
+  },
+}

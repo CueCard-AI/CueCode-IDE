@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT"
+
+MODE="cloud"
+HARNESS_URL="${CUECODE_HARNESS_URL:-ws://127.0.0.1:8787/v1/chp/connect}"
+HARNESS_PID=""
+HARNESS_REPO=""
+
+find_harness_repo() {
+  for candidate in \
+    "$ROOT/../cuecode-harness" \
+    "$HOME/CueInference/cuecode-harness" \
+    "$HOME/cuecode/cuecode-harness"; do
+    if [[ -f "$candidate/services/harness-api/Cargo.toml" ]]; then
+      echo "$candidate"
+      return 0
+    fi
+  done
+  return 1
+}
+
+cleanup() {
+  if [[ -n "$HARNESS_PID" ]]; then
+    kill "$HARNESS_PID" 2>/dev/null || true
+    wait "$HARNESS_PID" 2>/dev/null || true
+  fi
+}
+trap cleanup EXIT
+
+usage() {
+  cat <<'EOF'
+Usage: script/cuecode-local [--local|--stub|--harness] [cargo run -p cuecode args...]
+
+  --local    NativeAgent in-process (no harness server)
+  --stub     Start GPL harness-stub on :8787, then run zed with cloud runtime
+  --harness  Start sibling cuecode-harness (private harness-api) on :8787
+  (default)  Use CUECODE_HARNESS_URL (expects harness already running)
+
+Environment:
+  CUECODE_HARNESS_URL   WebSocket CHP endpoint (default ws://127.0.0.1:8787/v1/chp/connect)
+  CUECODE_AGENT_RUNTIME cloud | local | byok_cloud
+  HARNESS_PORT          Port for --stub (default 8787)
+EOF
+}
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --local) MODE="local"; shift ;;
+    --stub) MODE="stub"; shift ;;
+    --harness) MODE="harness"; shift ;;
+    --help|-h) usage; exit 0 ;;
+    --) shift; break ;;
+    *) break ;;
+  esac
+done
+
+wait_for_harness_health() {
+  local port="$1"
+  local label="$2"
+  for _ in $(seq 1 50); do
+    if curl -sf "http://127.0.0.1:${port}/health" >/dev/null 2>&1; then
+      return 0
+    fi
+    sleep 0.1
+  done
+  echo "${label} failed to start on port ${port}" >&2
+  return 1
+}
+
+if [[ "$MODE" == "stub" || "$MODE" == "harness" ]]; then
+  export HARNESS_PORT="${HARNESS_PORT:-8787}"
+  HARNESS_URL="ws://127.0.0.1:${HARNESS_PORT}/v1/chp/connect"
+fi
+
+if [[ "$MODE" == "stub" ]]; then
+  cargo run -p harness_stub --bin harness-stub &
+  HARNESS_PID=$!
+  wait_for_harness_health "$HARNESS_PORT" "harness-stub"
+elif [[ "$MODE" == "harness" ]]; then
+  HARNESS_REPO="$(find_harness_repo || true)"
+  if [[ -z "$HARNESS_REPO" ]]; then
+    echo "cuecode-harness not found (expected ../cuecode-harness or ~/CueInference/cuecode-harness)" >&2
+    exit 1
+  fi
+  (cd "$HARNESS_REPO" && HARNESS_PORT="$HARNESS_PORT" script/dev-harness) &
+  HARNESS_PID=$!
+  wait_for_harness_health "$HARNESS_PORT" "harness-api"
+fi
+
+if [[ "$MODE" == "local" ]]; then
+  export CUECODE_AGENT_RUNTIME=local
+else
+  export CUECODE_AGENT_RUNTIME="${CUECODE_AGENT_RUNTIME:-cloud}"
+  export CUECODE_HARNESS_URL="$HARNESS_URL"
+fi
+
+if [[ $# -gt 0 ]]; then
+  exec "$@"
+fi
+
+exec cargo run -p cuecode --bin cuecode "$@"

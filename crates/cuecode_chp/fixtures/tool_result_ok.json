@@ -1,0 +1,11 @@
+{
+  "chp_version": "1.0",
+  "type": "tool.result",
+  "session_id": "sess_test_001",
+  "request_id": "req_tool_1",
+  "payload": {
+    "tool_call_id": "tc_read_1",
+    "success": true,
+    "content": "# CueCode\n"
+  }
+}

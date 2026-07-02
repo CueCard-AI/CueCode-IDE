@@ -1,0 +1,34 @@
+name: cuecode-cloud-m0
+on:
+  pull_request:
+    paths:
+      - 'crates/cuecode_chp/**'
+      - 'crates/cuecode_cloud/**'
+      - 'crates/harness_stub/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+      - '.github/workflows/cuecode-cloud-m0.yml'
+  push:
+    branches:
+      - main
+    paths:
+      - 'crates/cuecode_chp/**'
+      - 'crates/cuecode_cloud/**'
+      - 'crates/harness_stub/**'
+      - 'Cargo.toml'
+      - 'Cargo.lock'
+
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: '1'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Test CHP crates
+        run: cargo test -p cuecode_chp -p harness_stub -p cuecode_cloud
+      - name: Clippy cuecode_cloud
+        run: ./script/clippy -p cuecode_cloud
