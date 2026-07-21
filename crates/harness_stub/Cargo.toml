@@ -1,0 +1,28 @@
+[package]
+name = "harness_stub"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+license = "GPL-3.0-or-later"
+description = "GPL M0 stub harness-api server for local CueCode development"
+
+[lints]
+workspace = true
+
+[lib]
+path = "src/harness_stub.rs"
+
+[[bin]]
+name = "harness-stub"
+path = "src/main.rs"
+
+[dependencies]
+anyhow.workspace = true
+axum = { version = "0.6", features = ["json", "ws"] }
+cuecode_chp.workspace = true
+env_logger.workspace = true
+futures.workspace = true
+log.workspace = true
+serde_json.workspace = true
+tokio = { workspace = true, features = ["macros", "rt-multi-thread", "net", "sync"] }
+uuid.workspace = true

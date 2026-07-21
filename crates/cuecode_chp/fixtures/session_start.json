@@ -1,0 +1,15 @@
+{
+  "chp_version": "1.0",
+  "type": "session.start",
+  "request_id": "req_start_1",
+  "payload": {
+    "work_dirs": ["/tmp/project"],
+    "intent": "fix",
+    "runtime_mode": "cloud",
+    "client": {
+      "app": "cuecode",
+      "app_version": "0.1.0",
+      "platform": "test"
+    }
+  }
+}

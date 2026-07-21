@@ -1,0 +1,48 @@
+---
+description: CueCode AI-maxxing — agentic sandbox strategy, AI surface map, beat sidebar-first IDEs
+globs:
+  - crates/agent/**
+  - crates/agent_*/**
+  - crates/acp_*/**
+  - crates/language_model/**
+  - crates/language_model_*/**
+  - crates/language_models/**
+  - crates/language_models_cloud/**
+  - crates/edit_prediction/**
+  - crates/edit_prediction_*/**
+  - crates/prompt_store/**
+  - crates/context_server/**
+  - crates/ai_onboarding/**
+  - crates/action_log/**
+  - crates/cloud_llm_client/**
+  - .cursor/specs/core/04-sandbox-core.md
+  - .cursor/specs/core/05-innovations.md
+  - .cursor/specs/design/09-ui-ux-spec.md
+  - .cursor/specs/agent/13-ai-maxxing.md
+  - .cursor/specs/harness/**
+  - .cursor/specs/harness/14-agent-harness.md
+  - .cursor/skills/cuecode-ai-maxxing/**
+alwaysApply: false
+---
+
+# CueCode AI-maxxing
+
+Read `.cursor/skills/cuecode-ai-maxxing/SKILL.md` and `.cursor/specs/agent/13-ai-maxxing.md`.
+For harness work: `.cursor/specs/harness/README.md` — **cloud (default):** `harness/cloud/` · **local fallback:** `harness/local/01-agent-harness.md`.
+
+## Quick doctrine
+
+Sandbox is the product — not chat bolted on. Tighten: intent → spec → act → review → checkpoint.
+
+## Stack
+
+| Task | Skill |
+|------|-------|
+| AI product / moat / parity decisions | `cuecode-ai-maxxing` |
+| Prompts, models, tools | `agent-inference` |
+| Agent UI | `ui-ux-gpui` |
+| User journeys | `product-builder` |
+| Voice / ideate vs solve | `engineering-partner` |
+| Rust | `rust-quality` |
+
+Every AI feature: run the maxxing checklist in spec §13 before shipping.

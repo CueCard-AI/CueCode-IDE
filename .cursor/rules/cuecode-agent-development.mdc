@@ -1,0 +1,57 @@
+---
+description: Route agent, UI, and inference work to the right CueCode skills and references
+globs:
+  - crates/agent/**
+  - crates/agent_ui/**
+  - crates/agent_*/**
+  - crates/acp_*/**
+  - crates/language_model/**
+  - crates/language_model_*/**
+  - crates/language_models/**
+  - crates/language_models_cloud/**
+  - crates/ui/**
+  - crates/workspace/**
+  - crates/component/**
+  - crates/component_preview/**
+  - crates/theme/**
+  - crates/panel/**
+  - crates/title_bar/**
+  - .cursor/skills/**
+alwaysApply: false
+---
+
+# CueCode agent development
+
+When editing files matched by this rule, read the relevant **agent skill** under
+`.cursor/skills/<name>/SKILL.md` before implementing. Do not duplicate skill
+bodies in responses — follow them.
+
+## Skill router
+
+| Task | Skill | References |
+|------|-------|------------|
+| Tone, brainstorm vs fix, pacing | `engineering-partner` | `references/mode-detection.md` |
+| AI product doctrine, moat vs parity, surface map | `cuecode-ai-maxxing` | `references/ai-surface-map.md`, `references/cursor-parity-vs-moat.md` |
+| Product scope, user journeys, spec alignment | `product-builder` | `references/product-thinking-checklist.md` |
+| GPUI panels, modals, agent UI, icons, UX | `ui-ux-gpui` | `references/ui-surfaces.md`, `references/ux-review-checklist.md` |
+| Prompts, models, context, tools, streaming, ACP | `agent-inference` | `references/inference-flow.md`, `references/prompt-editing-guide.md` |
+| Rust implementation quality | `rust-quality` | `references/pre-submit-checklist.md` |
+| GPUI test failures | `gpui-test` | skill body |
+| Product specs, rebrand, roadmap | — | `.cursor/rules/cuecode-specs.mdc`, `.cursor/specs/` |
+
+## Quick routing
+
+- **New AI/agent feature** → `cuecode-ai-maxxing` + `product-builder`, then `ui-ux-gpui` and/or `agent-inference`.
+- **New user-facing feature** → `product-builder` first, then `ui-ux-gpui` and/or `agent-inference`.
+- **UI-only change** → `ui-ux-gpui` + `rust-quality`.
+- **Prompt/tool/model change** → `agent-inference` + `rust-quality`; check UI if user-visible.
+- **Both UI and inference** → all three hub skills, smallest diff that satisfies the user path.
+
+## Principles
+
+- User path before crate names; happy and unhappy paths.
+- Match existing patterns in `agent_ui` / `agent` — do not invent parallel UX.
+- `./script/clippy` and targeted tests before calling work done (`rust-quality`).
+- Link PRs to `.cursor/specs/` sections when implementing CueCode product work.
+
+Communication voice and modes: `.cursor/rules/cuecode-comms.mdc` → `engineering-partner` skill.

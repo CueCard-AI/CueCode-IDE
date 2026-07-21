@@ -1,0 +1,2 @@
+harness: cargo run -p harness_stub --bin harness-stub
+cuecode: CUECODE_HARNESS_URL=ws://127.0.0.1:8787/v1/chp/connect CUECODE_AGENT_RUNTIME=cloud cargo run -p cuecode

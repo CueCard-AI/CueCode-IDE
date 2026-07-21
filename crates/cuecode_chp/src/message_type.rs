@@ -1,0 +1,17 @@
+pub const SESSION_START: &str = "session.start";
+pub const SESSION_STARTED: &str = "session.started";
+pub const SESSION_RESUME: &str = "session.resume";
+pub const SESSION_RESUMED: &str = "session.resumed";
+pub const SESSION_END: &str = "session.end";
+pub const TURN_START: &str = "turn.start";
+pub const TURN_STREAM: &str = "turn.stream";
+pub const TURN_END: &str = "turn.end";
+pub const TURN_CANCEL: &str = "turn.cancel";
+pub const TOOL_REQUEST: &str = "tool.request";
+pub const TOOL_RESULT: &str = "tool.result";
+pub const PERMISSION_REQUEST: &str = "permission.request";
+pub const PERMISSION_RESPONSE: &str = "permission.response";
+pub const SPAWN_LANE: &str = "spawn.lane";
+pub const NOTIFICATION: &str = "notification";
+pub const ERROR: &str = "error";
+pub const KEEPALIVE: &str = "keepalive";

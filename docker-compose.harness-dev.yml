@@ -1,0 +1,10 @@
+services:
+  harness-stub:
+    build:
+      context: .
+      dockerfile: crates/harness_stub/Dockerfile
+    ports:
+      - "8787:8787"
+    environment:
+      HARNESS_PORT: "8787"
+      RUST_LOG: info

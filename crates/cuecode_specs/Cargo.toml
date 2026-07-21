@@ -1,0 +1,37 @@
+[package]
+name = "cuecode_specs"
+version = "0.1.0"
+edition.workspace = true
+publish.workspace = true
+license = "GPL-3.0-or-later"
+description = "CueCode spec index — scan, parse, and watch .cursor/specs/"
+
+[lints]
+workspace = true
+
+[lib]
+path = "src/cuecode_specs.rs"
+
+[features]
+test-support = ["fs/test-support", "gpui/test-support"]
+
+[dependencies]
+anyhow.workspace = true
+chrono.workspace = true
+fs.workspace = true
+futures.workspace = true
+gpui.workspace = true
+parking_lot.workspace = true
+regex.workspace = true
+serde.workspace = true
+serde_yaml.workspace = true
+settings.workspace = true
+telemetry.workspace = true
+walkdir.workspace = true
+log.workspace = true
+
+[dev-dependencies]
+fs = { workspace = true, features = ["test-support"] }
+gpui = { workspace = true, features = ["test-support"] }
+pretty_assertions.workspace = true
+tempfile.workspace = true

@@ -1,0 +1,10 @@
+{
+  "chp_version": "1.0",
+  "type": "turn.start",
+  "session_id": "sess_test_001",
+  "request_id": "req_turn_1",
+  "payload": {
+    "user_message_id": "umsg_1",
+    "content": [{ "type": "text", "text": "Read README.md" }]
+  }
+}
